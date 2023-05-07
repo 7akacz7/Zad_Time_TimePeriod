@@ -132,7 +132,7 @@
 
         public Time Plus(TimePeriod timePeriod)
         {
-            int totalSeconds = Hours * 3600 + Minutes * 60 + Seconds + timePeriod.TotalSeconds;
+            long totalSeconds = Hours * 3600 + Minutes * 60 + Seconds + timePeriod.TotalSeconds;
             totalSeconds %= 86400; // modulo 24 godziny
             byte hours = (byte)(totalSeconds / 3600);
             byte minutes = (byte)((totalSeconds / 60) % 60);
@@ -153,7 +153,7 @@
 
         public Time Minus(TimePeriod timePeriod)
         {
-            int totalSeconds = Hours * 3600 + Minutes * 60 + Seconds - timePeriod.TotalSeconds;
+            long totalSeconds = Hours * 3600 + Minutes * 60 + Seconds - timePeriod.TotalSeconds;
             totalSeconds = (totalSeconds + 86400) % 86400; // modulo 24 godziny
             byte hours = (byte)(totalSeconds / 3600);
             byte minutes = (byte)((totalSeconds / 60) % 60);
@@ -176,16 +176,15 @@
     #region TimePeriod
     public struct TimePeriod : IEquatable<TimePeriod>, IComparable<TimePeriod>
     {
-        private readonly int totalSeconds;
+        private readonly long totalSeconds;
 
-        public int TotalSeconds => totalSeconds;
+        public long TotalSeconds => totalSeconds;
 
-        public int Hours => totalSeconds / 3600;
+        public long Hours => totalSeconds / 3600;
 
-        public int Minutes => (totalSeconds % 3600) / 60;
+        public long Minutes => (totalSeconds % 3600) / 60;
 
-        public int Seconds => totalSeconds % 60;
-
+        public long Seconds => totalSeconds % 60;
         public TimePeriod(int hours = 0, int minutes = 0, int seconds = 0)
         {
             if (hours < 0 && minutes < 0 && seconds < 0)
