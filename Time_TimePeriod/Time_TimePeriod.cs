@@ -180,14 +180,14 @@
 
         public long TotalSeconds => totalSeconds;
 
-        public long Hours => totalSeconds / 3600;
+        public int Hours => (int)(totalSeconds / 3600);
 
-        public long Minutes => (totalSeconds % 3600) / 60;
+        public int Minutes => (int)((totalSeconds % 3600) / 60);
 
-        public long Seconds => totalSeconds % 60;
+        public int Seconds => (int)(totalSeconds % 60);
         public TimePeriod(int hours = 0, int minutes = 0, int seconds = 0)
         {
-            if (hours < 0 && minutes < 0 && seconds < 0)
+            if (hours < 0 || minutes < 0 || seconds < 0)
                 throw new ArgumentException("Time period values cannot be negative");
 
             totalSeconds = hours * 3600 + minutes * 60 + seconds;
